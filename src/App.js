@@ -1,23 +1,27 @@
-import logo from './logo.svg';
-import './App.css';
+import ReactWeather, { useOpenWeather } from "react-open-weather";
+import "./App.css";
 
 function App() {
+  const { data, isLoading, errorMessage } = useOpenWeather({
+    key: "efc4e2076a87f7109489897fd09f36c3",
+    lat: "1.2921",
+    lon: "36.8219",
+    lang: "en",
+    unit: "imperial", // values are (metric, standard, imperial)
+  });
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <ReactWeather
+        isLoading={isLoading}
+        errorMessage={errorMessage}
+        data={data}
+        lang="en"
+        locationLabel="Nairobi"
+        unitsLabels={{ temperature: "C", windSpeed: "Km/h" }}
+        showForecast
+      />
+    
     </div>
   );
 }
